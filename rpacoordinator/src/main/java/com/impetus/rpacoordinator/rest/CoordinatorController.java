@@ -12,17 +12,24 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.impetus.rpacoordinator.model.BotRequest;
+import com.impetus.rpacoordinator.model.BotResponse;
 
 @RestController
 public class CoordinatorController {
@@ -95,4 +102,32 @@ public class CoordinatorController {
         return new ResponseEntity<>("Registered", HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/fullfillment",method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity webhook(@RequestBody String dr){
+      BotResponse botResponse = new BotResponse();
+         BotRequest botRequest = null;
+         ObjectMapper mapper = new ObjectMapper();
+         try {
+              botRequest = mapper.readValue(dr, BotRequest.class);
+       } catch (JsonParseException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+       } catch (JsonMappingException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+       } catch (IOException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+       }
+         if(botRequest != null){
+                String num1 = botRequest.getId()+" HI ";
+                String num2 = botRequest.getId()+"   cimedosweptus : ; ";
+                
+                botResponse.setSpeech("Capacity Server Response: "+num1+" Duration: "+num2);
+                botResponse.setDisplayText("Capacity Server Response: "+num1+" Duration: "+num2);
+         }
+         
+        return new ResponseEntity<>(botResponse ,HttpStatus.OK);
+    }
+
 } 
