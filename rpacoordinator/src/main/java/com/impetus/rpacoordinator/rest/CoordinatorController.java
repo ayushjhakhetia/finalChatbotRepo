@@ -103,7 +103,7 @@ public class CoordinatorController {
     }
     
     @RequestMapping(value = "/fullfillment",method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity webhook(@RequestBody String dr){
+    public @ResponseBody WebhookResponse webhook(@RequestBody String dr){
       BotResponse botResponse = new BotResponse();
          BotRequest botRequest = null;
          ObjectMapper mapper = new ObjectMapper();
@@ -120,14 +120,14 @@ public class CoordinatorController {
               e1.printStackTrace();
        }
          if(botRequest != null){
-                String num1 = botRequest.getId()+" HI ";
-                String num2 = botRequest.getId()+"   cimedosweptus : ; ";
-                
-                botResponse.setSpeech("Capacity Server Response: "+num1+" Duration: "+num2);
-                botResponse.setDisplayText("Capacity Server Response: "+num1+" Duration: "+num2);
+             int num1 = botRequest.getResult().getParameters().getCapacity();
+             int num2 = botRequest.getResult().getParameters().getDuration().getAmount();
+             
+             botResponse.setSpeech("Capacity Server Response: "+num1+" Duration: "+num2);
+             botResponse.setDisplayText("Capacity Server Response: "+num1+" Duration: "+num2);
          }
          
-        return new ResponseEntity<>(" H I M P E T U S " ,HttpStatus.OK);
-    }
+           return new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
+       }
 
 } 

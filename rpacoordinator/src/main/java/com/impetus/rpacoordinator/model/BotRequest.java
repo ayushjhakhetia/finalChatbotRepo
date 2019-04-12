@@ -12,27 +12,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id"/*,
+    "id",
     "timestamp",
     "lang",
     "result",
     "status",
-    "sessionId"*/
+    "sessionId"
 })
 public class BotRequest {
 
     @JsonProperty("id")
     private String id;
-//    @JsonProperty("timestamp")
-//    private String timestamp;
-//    @JsonProperty("lang")
-//    private String lang;
-//    @JsonProperty("result")
-//    private Result result;
-//    @JsonProperty("status")
-//    private Status status;
-//    @JsonProperty("sessionId")
-//    private String sessionId;
+    @JsonProperty("timestamp")
+    private String timestamp;
+    @JsonProperty("lang")
+    private String lang;
+    @JsonProperty("result")
+    private Result result;
+    @JsonProperty("status")
+    private Status status;
+    @JsonProperty("sessionId")
+    private String sessionId;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -46,7 +46,7 @@ public class BotRequest {
         this.id = id;
     }
 
-    /*@JsonProperty("timestamp")
+    @JsonProperty("result")
     public String getTimestamp() {
         return timestamp;
     }
@@ -94,7 +94,7 @@ public class BotRequest {
     @JsonProperty("sessionId")
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
-    }*/
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
