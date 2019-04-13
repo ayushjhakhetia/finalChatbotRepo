@@ -11,7 +11,7 @@ public class WebhookResponse {
         this.displayText = displayText;
     }
 
-    public String getSpeech() {
+    public String getFullfillment() {
         return fulfillmentText;
     }
 
