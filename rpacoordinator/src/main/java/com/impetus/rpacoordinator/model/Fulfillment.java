@@ -13,14 +13,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "speech",
+    "fulfillmentText",
     "source",
     "displayText",
     "messages"
 })
 public class Fulfillment {
 
-    @JsonProperty("speech")
+    @JsonProperty("fulfillmentText")
     private String speech;
     @JsonProperty("source")
     private String source;
@@ -31,12 +31,12 @@ public class Fulfillment {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("speech")
+    @JsonProperty("fulfillmentText")
     public String getSpeech() {
         return speech;
     }
 
-    @JsonProperty("speech")
+    @JsonProperty("fulfillmentText")
     public void setSpeech(String speech) {
         this.speech = speech;
     }

@@ -1,4 +1,3 @@
-
 package com.impetus.rpacoordinator.model;
 
 import java.util.HashMap;
@@ -17,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "time",
     "date",
     "duration",
+    "param",
     "time-period"
 })
 public class Parameters {
@@ -29,6 +29,8 @@ public class Parameters {
     private String date;
     @JsonProperty("duration")
     private Duration duration;
+    @JsonProperty("param")
+    private String param;
     @JsonProperty("time-period")
     private String timePeriod;
     @JsonIgnore
@@ -72,6 +74,16 @@ public class Parameters {
     @JsonProperty("duration")
     public void setDuration(Duration duration) {
         this.duration = duration;
+    }
+    
+    @JsonProperty("param")
+    public String getParam() {
+        return param;
+    }
+
+    @JsonProperty("param")
+    public void setParam(String param) {
+        this.param = param;
     }
 
     @JsonProperty("time-period")

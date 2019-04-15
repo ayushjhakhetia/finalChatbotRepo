@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.impetus.rpacoordinator.model.BotRequest;
 import com.impetus.rpacoordinator.model.BotResponse;
+import com.impetus.rpacoordinator.model.FullfillmentMessages;
+import com.impetus.rpacoordinator.model.Text;
 
 @RestController
 public class CoordinatorController {
@@ -120,14 +123,39 @@ public class CoordinatorController {
               e1.printStackTrace();
        }
          if(botRequest != null){
-             int num1 = botRequest.getResult().getParameters().getCapacity();
-             int num2 = botRequest.getResult().getParameters().getDuration().getAmount();
+             String session = botRequest.getSession();
+             String fulfillmentText = botRequest.getQueryResult().getFulfillmentText();
+             String timePeriod = botRequest.getQueryResult().getParameters().getTimePeriod();
+             System.out.println("timePeriod " + timePeriod);
+             //             int num1 = botRequest.getResult().getParameters().getCapacity();
+//             int num2 = botRequest.getResult().getParameters().getDuration().getAmount();
              
-             botResponse.setSpeech("Capacity Server Response: "+num1+" Duration: "+num2);
-             botResponse.setDisplayText("Capacity Server Response: "+num1+" Duration: "+num2);
+             botResponse.setSpeech("Capacity Server Response: "/*+num1*/+" Session: "+session);
+             botResponse.setSpeech(session);
+             System.out.println(session);
+             //botResponse.setDisplayText("Capacity Server Response: "/*+num1*/+" getFulfillmentText: "+num2);
+             /*botResponse.setDisplayText("[\r\n" + 
+                    "    {\r\n" + 
+                    "      \"text\": [\r\n" + 
+                    "        \"text response\"\r\n" + 
+                    "      ],\r\n" + 
+                    "    }\r\n" + 
+                    "  ]");*/
          }
+//         WebhookResponse wr  = new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
          
-           return new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
+         WebhookResponse wr  = new WebhookResponse(botResponse.getSpeech());
+         wr.setFulfillmentText(botRequest.getQueryResult().getFulfillmentText());
+         List<Text> responseText = new ArrayList<>();
+         
+         for(FullfillmentMessages f : botRequest.getQueryResult().getFulfillmentMessages()) {
+             responseText.add(f.getText());
+         }
+         wr.setFulfillmentMessages(responseText);
+         wr.setSource(botRequest.getOriginalDetectIntentRequest().getSource());
+         System.out.println(wr);
+         System.out.println("webhook response \n Source: " + wr.getSource());
+           return wr;
        }
 
 } 

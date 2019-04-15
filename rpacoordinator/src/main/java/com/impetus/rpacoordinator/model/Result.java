@@ -1,4 +1,3 @@
-
 package com.impetus.rpacoordinator.model;
 
 import java.util.HashMap;
