@@ -13,25 +13,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "capacity",
-    "time",
     "date",
     "duration",
-    "param",
+    "numberInteger",
     "time-period"
 })
 public class Parameters {
 
     @JsonProperty("capacity")
     private Integer capacity;
-    @JsonProperty("time")
-    private List<String> time = null;
+    @JsonProperty("time-period")
+    private String time = null;
     @JsonProperty("date")
     private String date;
+    //Duration class TODO
     @JsonProperty("duration")
-    private Duration duration;
-    @JsonProperty("param")
-    private String param;
-    @JsonProperty("time-period")
+    private String duration;
+    @JsonProperty("numberInteger")
+    private String numberInteger;
+    @JsonProperty("time")
     private String timePeriod;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -46,13 +46,13 @@ public class Parameters {
         this.capacity = capacity;
     }
 
-    @JsonProperty("time")
-    public List<String> getTime() {
+    @JsonProperty("timePeriod")
+    public String getTimePeriod() {
         return time;
     }
 
-    @JsonProperty("time")
-    public void setTime(List<String> time) {
+    @JsonProperty("timePeriod")
+    public void setTimePeriod(String time) {
         this.time = time;
     }
 
@@ -67,33 +67,23 @@ public class Parameters {
     }
 
     @JsonProperty("duration")
-    public Duration getDuration() {
+    public String getDuration() {
         return duration;
     }
 
     @JsonProperty("duration")
-    public void setDuration(Duration duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
     
-    @JsonProperty("param")
-    public String getParam() {
-        return param;
+    @JsonProperty("numberInteger")
+    public String getNumberInteger() {
+        return numberInteger;
     }
 
-    @JsonProperty("param")
-    public void setParam(String param) {
-        this.param = param;
-    }
-
-    @JsonProperty("time-period")
-    public String getTimePeriod() {
-        return timePeriod;
-    }
-
-    @JsonProperty("time-period")
-    public void setTimePeriod(String timePeriod) {
-        this.timePeriod = timePeriod;
+    @JsonProperty("numberInteger")
+    public void setNumberInteger(String param) {
+        this.numberInteger = param;
     }
 
     @JsonAnyGetter

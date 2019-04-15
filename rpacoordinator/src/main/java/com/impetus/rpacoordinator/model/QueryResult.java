@@ -22,7 +22,7 @@ public class QueryResult {
 	@JsonProperty("queryText")
 	private String queryText;
 	@JsonProperty("fulfillmentText")
-	private String fulfillmentText;
+	private String fulfillmentText = "Default fulfillment Text";
 	@JsonProperty("action")
 	private String action;
 	@JsonProperty("allRequiredParamsPresent")

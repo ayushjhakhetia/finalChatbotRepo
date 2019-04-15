@@ -152,7 +152,7 @@ public class CoordinatorController {
              responseText.add(f.getText());
          }
          wr.setFulfillmentMessages(responseText);
-         wr.setSource(botRequest.getOriginalDetectIntentRequest().getSource());
+         wr.setSource(botRequest.getSession());
          System.out.println(wr);
          System.out.println("webhook response \n Source: " + wr.getSource());
            return wr;
