@@ -140,8 +140,49 @@ public class CoordinatorController {
         // WebhookResponse wr = new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
 
         WebhookResponse wr = new WebhookResponse(botResponse.getSpeech());
-        if (botRequest.getQueryResult().getFulfillmentText() != null) {
+        
+        //For Agent - Webhook Demo
+        
+        /*if (botRequest.getQueryResult().getFulfillmentText() != null) {
             wr.setFulfillmentText(botRequest.getQueryResult().getFulfillmentText());
+        }
+        List<Text> responseText = new ArrayList<>();
+
+        if (botRequest.getQueryResult().getFulfillmentMessages() != null) {
+            for (FullfillmentMessages f : botRequest.getQueryResult().getFulfillmentMessages()) {
+                responseText.add(f.getText());
+            }
+        }
+        if (responseText != null)
+            wr.setFulfillmentMessages(responseText);
+        wr.setSource(botRequest.getSession());
+        System.out.println(wr);
+        System.out.println("webhook response \n Source: " + wr.getSource());
+        return wr;
+         */
+
+        // For Bank_Service
+        String fText=null;
+        String queryText = botRequest.getQueryResult().getQueryText();
+        String action = botRequest.getQueryResult().getAction();
+        String uid = null;
+        String pswd = null;
+        
+        if(queryText.equalsIgnoreCase("Can you change my account password")) {
+            wr.setFulfillmentText("Please provide your username and password");
+        } else if(action.equalsIgnoreCase("Account_creation_time")) {
+            if(botRequest.getQueryResult().getParameters().getUid()!=null) {
+               uid = botRequest.getQueryResult().getParameters().getUid();
+               pswd = botRequest.getQueryResult().getParameters().getPswd();
+               if((uid.equalsIgnoreCase("ayush.maheshwari@impetus.co.in"))&&(pswd.equalsIgnoreCase("123abc123"))) {
+                   wr.setFulfillmentText("Password reset successfully");
+               }
+            }
+        }
+        
+        if (botRequest.getQueryResult().getParameters().getUsername() != null) {
+            fText = botRequest.getQueryResult().getParameters().getUsername();
+            wr.setFulfillmentText(botRequest.getQueryResult().getParameters().getUsername());    
         }
         List<Text> responseText = new ArrayList<>();
 
