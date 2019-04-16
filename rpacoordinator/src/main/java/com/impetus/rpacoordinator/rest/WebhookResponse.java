@@ -7,7 +7,7 @@ import com.impetus.rpacoordinator.model.OutputContexts;
 import com.impetus.rpacoordinator.model.Text;
 
 public class WebhookResponse {
-    private String fulfillmentText;
+    private String fulfillmentText= " Default fulfillment text";
     private List<Text> fulfillmentMessages;
 
     private String source = "impetus-hook";

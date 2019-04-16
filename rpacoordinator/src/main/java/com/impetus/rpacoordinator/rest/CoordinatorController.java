@@ -36,22 +36,22 @@ import com.impetus.rpacoordinator.model.Text;
 
 @RestController
 public class CoordinatorController {
-	//public static String status = AgentConstants.STATUS_READY;
-	private static String UPLOADED_FOLDER = "D://temp//";
-	
-	@RequestMapping("/status")
+    // public static String status = AgentConstants.STATUS_READY;
+    private static String UPLOADED_FOLDER = "D://temp//";
+
+    @RequestMapping("/status")
     public ResponseEntity<?> echoAgentStatus(HttpServletRequest request, HttpServletResponse response) {
-    	System.out.println("Executing echoAgentStatus");
+        System.out.println("Executing echoAgentStatus");
         return new ResponseEntity<>("Online", HttpStatus.OK);
     }
-	
-    //Multiple file upload for Bot jar and resource files
+
+    // Multiple file upload for Bot jar and resource files
     @PostMapping("/uploadfiles")
     public ResponseEntity<?> uploadFileMulti(@RequestParam("files") MultipartFile[] uploadfiles) {
-    	System.out.println("Multiple file upload!");
+        System.out.println("Multiple file upload!");
         // Get file name
-        String uploadedFileName = Arrays.stream(uploadfiles).map(x -> x.getOriginalFilename())
-                .filter(x -> !StringUtils.isEmpty(x)).collect(Collectors.joining(" , "));
+        String uploadedFileName = Arrays.stream(uploadfiles).map(x -> x.getOriginalFilename()).filter(x -> !StringUtils.isEmpty(x))
+                .collect(Collectors.joining(" , "));
         if (StringUtils.isEmpty(uploadedFileName)) {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
@@ -62,30 +62,28 @@ public class CoordinatorController {
         }
         return new ResponseEntity("Successfully uploaded - " + uploadedFileName, HttpStatus.OK);
     }
-    
-    //save file
+
+    // save file
     private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
         for (MultipartFile file : files) {
             if (file.isEmpty()) {
-                continue; //next pls
+                continue; // next pls
             }
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            if (!Files.exists(path.getParent())) 
-            	Files.createDirectories(path.getParent());
+            if (!Files.exists(path.getParent()))
+                Files.createDirectories(path.getParent());
             Files.write(path, bytes);
         }
     }
 
-   /**
-     * @param request HTTP request
-     * @param response HTTP response
-     * @return  status code
-     */
-    @RequestMapping("/registeragent") 
-    public final ResponseEntity<?> registerAgent(final HttpServletRequest 
-            request, final HttpServletResponse response)
-    {
+    /** @param request
+     *            HTTP request
+     * @param response
+     *            HTTP response
+     * @return status code */
+    @RequestMapping("/registeragent")
+    public final ResponseEntity<?> registerAgent(final HttpServletRequest request, final HttpServletResponse response) {
         System.out.println("registering Agent");
         final String id;
         final String agentbaseurl;
@@ -104,58 +102,60 @@ public class CoordinatorController {
         }
         return new ResponseEntity<>("Registered", HttpStatus.OK);
     }
-    
-    @RequestMapping(value = "/fullfillment",method = RequestMethod.POST)
-    public @ResponseBody WebhookResponse webhook(@RequestBody String dr){
-      BotResponse botResponse = new BotResponse();
-         BotRequest botRequest = null;
-         ObjectMapper mapper = new ObjectMapper();
-         try {
-              botRequest = mapper.readValue(dr, BotRequest.class);
-       } catch (JsonParseException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-       } catch (JsonMappingException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-       } catch (IOException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-       }
-         if(botRequest != null){
-             String session = botRequest.getSession();
-             String fulfillmentText = botRequest.getQueryResult().getFulfillmentText();
-             String timePeriod = botRequest.getQueryResult().getParameters().getTimePeriod();
-             System.out.println("timePeriod " + timePeriod);
-             //             int num1 = botRequest.getResult().getParameters().getCapacity();
-//             int num2 = botRequest.getResult().getParameters().getDuration().getAmount();
-             
-             botResponse.setSpeech("Capacity Server Response: "/*+num1*/+" Session: "+session);
-             botResponse.setSpeech(session);
-             System.out.println(session);
-             //botResponse.setDisplayText("Capacity Server Response: "/*+num1*/+" getFulfillmentText: "+num2);
-             /*botResponse.setDisplayText("[\r\n" + 
-                    "    {\r\n" + 
-                    "      \"text\": [\r\n" + 
-                    "        \"text response\"\r\n" + 
-                    "      ],\r\n" + 
-                    "    }\r\n" + 
-                    "  ]");*/
-         }
-//         WebhookResponse wr  = new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
-         
-         WebhookResponse wr  = new WebhookResponse(botResponse.getSpeech());
-         wr.setFulfillmentText(botRequest.getQueryResult().getFulfillmentText());
-         List<Text> responseText = new ArrayList<>();
-         
-         for(FullfillmentMessages f : botRequest.getQueryResult().getFulfillmentMessages()) {
-             responseText.add(f.getText());
-         }
-         wr.setFulfillmentMessages(responseText);
-         wr.setSource(botRequest.getSession());
-         System.out.println(wr);
-         System.out.println("webhook response \n Source: " + wr.getSource());
-           return wr;
-       }
 
-} 
+    @RequestMapping(value = "/fullfillment", method = RequestMethod.POST)
+    public @ResponseBody WebhookResponse webhook(@RequestBody String dr) {
+        BotResponse botResponse = new BotResponse();
+        BotRequest botRequest = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            botRequest = mapper.readValue(dr, BotRequest.class);
+        } catch (JsonParseException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (JsonMappingException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        if (botRequest != null) {
+            String session = botRequest.getSession();
+            String fulfillmentText = botRequest.getQueryResult().getFulfillmentText();
+            String timePeriod = botRequest.getQueryResult().getParameters().getTimePeriod();
+            System.out.println("timePeriod " + timePeriod);
+            // int num1 = botRequest.getResult().getParameters().getCapacity();
+            // int num2 = botRequest.getResult().getParameters().getDuration().getAmount();
+
+            botResponse.setSpeech("Capacity Server Response: "/* +num1 */ + " Session: " + session);
+            botResponse.setSpeech(session);
+            System.out.println(session);
+            // botResponse.setDisplayText("Capacity Server Response: "/*+num1*/+" getFulfillmentText: "+num2);
+            /*
+             * botResponse.setDisplayText("[\r\n" + "    {\r\n" + "      \"text\": [\r\n" + "        \"text response\"\r\n" + "      ],\r\n" +
+             * "    }\r\n" + "  ]");
+             */
+        }
+        // WebhookResponse wr = new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
+
+        WebhookResponse wr = new WebhookResponse(botResponse.getSpeech());
+        if (botRequest.getQueryResult().getFulfillmentText() != null) {
+            wr.setFulfillmentText(botRequest.getQueryResult().getFulfillmentText());
+        }
+        List<Text> responseText = new ArrayList<>();
+
+        if (botRequest.getQueryResult().getFulfillmentMessages() != null) {
+            for (FullfillmentMessages f : botRequest.getQueryResult().getFulfillmentMessages()) {
+                responseText.add(f.getText());
+            }
+        }
+        if (responseText != null)
+            wr.setFulfillmentMessages(responseText);
+        wr.setSource(botRequest.getSession());
+        System.out.println(wr);
+        System.out.println("webhook response \n Source: " + wr.getSource());
+        return wr;
+    }
+
+}
