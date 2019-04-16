@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.impetus.rpacoordinator.model.BotRequest;
 import com.impetus.rpacoordinator.model.BotResponse;
 import com.impetus.rpacoordinator.model.FullfillmentMessages;
+import com.impetus.rpacoordinator.model.QueryResult;
 import com.impetus.rpacoordinator.model.Text;
 
 @RestController
@@ -170,32 +171,67 @@ public class CoordinatorController {
         
         if(queryText.equalsIgnoreCase("Can you change my account password")) {
             wr.setFulfillmentText("Please provide your username and password");
+            System.out.println(" qyeryText not null");
+            System.out.println();
+            
         } else if(action.equalsIgnoreCase("passwordChange")) {
+            System.out.println(" Action "+ action + " queryText " + queryText);
+            System.out.println(" qyeryText null");
             if(botRequest.getQueryResult().getParameters().getUid()!=null) {
                uid = botRequest.getQueryResult().getParameters().getUid();
                pswd = botRequest.getQueryResult().getParameters().getPswd();
-               if((uid.equalsIgnoreCase("ayush.maheshwari@impetus.co.in"))&&(pswd.equalsIgnoreCase("123abc123"))) {
+               System.out.println(" uid  and pswd " + uid + " pswd " + pswd);
+               if((uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&(pswd.equalsIgnoreCase("123abc123"))) {
                    wr.setFulfillmentText("Password reset successfully");
+                   System.out.println("password match");
+                   System.out.println();
                }
             }
         }
         
-        if (botRequest.getQueryResult().getParameters().getUsername() != null) {
+        /*if (botRequest.getQueryResult().getParameters().getUsername() != null) {
             fText = botRequest.getQueryResult().getParameters().getUsername();
             wr.setFulfillmentText(botRequest.getQueryResult().getParameters().getUsername());    
-        }
+        }*/
         List<Text> responseText = new ArrayList<>();
 
         if (botRequest.getQueryResult().getFulfillmentMessages() != null) {
             for (FullfillmentMessages f : botRequest.getQueryResult().getFulfillmentMessages()) {
                 responseText.add(f.getText());
+                System.out.println("  botRequest.getQueryResult().getFulfillmentMessages() not NULL ");
             }
         }
-        if (responseText != null)
+        if (responseText != null) {
+        
+            System.out.println("responseText not null/ fullfillmentMessage not null");
             wr.setFulfillmentMessages(responseText);
+        }
+        Text tx = new Text();
+        List<String> str = new ArrayList<String>();
+        str.add("abcd");
+        str.add("s bcd ");
+        tx.setText(str);
+        FullfillmentMessages fm = new FullfillmentMessages();
+        fm.setText(tx);
+        
+        /*Text tx2 = new Text();
+        List<String> str2 = new ArrayList<String>();
+        str2.add("abcd");
+        str2.add("s bcd ");
+        tx2.setText(str);
+        FullfillmentMessages fm2 = new FullfillmentMessages();
+        fm2.setText(tx2);*/
+        
+        List<Text> lt = new ArrayList<>();
+        lt.add(tx);
+//        lt.add(tx2);
+        
+        System.out.println();
+        System.out.println(lt.get(0).getText().get(0));
+        wr.setFulfillmentMessages(lt);
         wr.setSource(botRequest.getSession());
         System.out.println(wr);
-        System.out.println("webhook response \n Source: " + wr.getSource());
+        System.out.println("Source: " + wr.getSource());
         return wr;
     }
 
