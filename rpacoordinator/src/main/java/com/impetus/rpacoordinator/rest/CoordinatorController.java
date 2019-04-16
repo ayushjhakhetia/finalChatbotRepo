@@ -228,7 +228,7 @@ public class CoordinatorController {
         
         System.out.println();
         System.out.println(lt.get(0).getText().get(0));
-        wr.setFulfillmentMessages(lt);
+       // wr.setFulfillmentMessages(lt);
         wr.setSource(botRequest.getSession());
         System.out.println(wr);
         System.out.println("Source: " + wr.getSource());
