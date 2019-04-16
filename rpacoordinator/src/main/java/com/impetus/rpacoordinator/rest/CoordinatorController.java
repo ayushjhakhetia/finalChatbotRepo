@@ -170,7 +170,7 @@ public class CoordinatorController {
         
         if(queryText.equalsIgnoreCase("Can you change my account password")) {
             wr.setFulfillmentText("Please provide your username and password");
-        } else if(action.equalsIgnoreCase("Account_creation_time")) {
+        } else if(action.equalsIgnoreCase("passwordChange")) {
             if(botRequest.getQueryResult().getParameters().getUid()!=null) {
                uid = botRequest.getQueryResult().getParameters().getUid();
                pswd = botRequest.getQueryResult().getParameters().getPswd();
