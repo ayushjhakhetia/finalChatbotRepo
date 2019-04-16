@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.impetus.rpacoordinator.model.BotRequest;
 import com.impetus.rpacoordinator.model.BotResponse;
 import com.impetus.rpacoordinator.model.FullfillmentMessages;
+import com.impetus.rpacoordinator.model.Message;
 import com.impetus.rpacoordinator.model.Text;
 import com.impetus.rpacoordinator.model.TextResponse;
 
@@ -227,8 +228,12 @@ public class CoordinatorController {
         lt.add(tx);
 //        lt.add(tx2);
         
+        Message message = new Message();
+        message.setSpeech("Always speech ");
+        message.setType(1);
+        
         TextResponse tr = new TextResponse();
-        tr.setText("Text from Fullfillment Message ");
+        tr.setMessage(message);
         
         List<TextResponse> ltr = new ArrayList<>();
         ltr.add(tr);

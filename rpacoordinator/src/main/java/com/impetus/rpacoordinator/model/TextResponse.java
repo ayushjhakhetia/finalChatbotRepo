@@ -13,24 +13,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "text"
+    "message"
 })
 
 public class TextResponse {
 
-	@JsonProperty("text")
-    private String text;
+	@JsonProperty("message")
+    private Message text;
 	
 	@JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 	
-	@JsonProperty("text")
-    public String getText() {
+	@JsonProperty("message")
+    public Message getMessage() {
         return text;
     }
 
-    @JsonProperty("text")
-    public void setText(String text) {
+    @JsonProperty("message")
+    public void setMessage(Message text) {
         this.text = text;
     }
 
