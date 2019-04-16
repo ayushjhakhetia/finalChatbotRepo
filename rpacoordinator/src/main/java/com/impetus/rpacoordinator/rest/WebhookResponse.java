@@ -5,10 +5,11 @@ import java.util.List;
 import com.impetus.rpacoordinator.model.FullfillmentMessages;
 import com.impetus.rpacoordinator.model.OutputContexts;
 import com.impetus.rpacoordinator.model.Text;
+import com.impetus.rpacoordinator.model.TextResponse;
 
 public class WebhookResponse {
     private String fulfillmentText= " Default fulfillment text";
-    private List<Text> fulfillmentMessages;
+    private List<TextResponse> fulfillmentMessages;
 
     private String source = "impetus-hook";
     private List<OutputContexts> outputContexts;
@@ -21,11 +22,11 @@ public class WebhookResponse {
         this.fulfillmentText = fulfillmentText;
     }
 
-    public final List<Text> getFulfillmentMessages() {
+    public final List<TextResponse> getFulfillmentMessages() {
         return fulfillmentMessages;
     }
 
-    public final void setFulfillmentMessages(List<Text> fulfillmentMessages) {
+    public final void setFulfillmentMessages(List<TextResponse> fulfillmentMessages) {
         this.fulfillmentMessages = fulfillmentMessages;
     }
 
@@ -45,7 +46,7 @@ public class WebhookResponse {
         this.outputContexts = outputContexts;
     }
 
-    public WebhookResponse(String speech, List<Text> displayText) {
+    public WebhookResponse(String speech, List<TextResponse> displayText) {
         this.fulfillmentText = speech;
         this.fulfillmentMessages = displayText;
     }
