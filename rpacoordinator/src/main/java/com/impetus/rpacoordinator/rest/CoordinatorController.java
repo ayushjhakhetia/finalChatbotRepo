@@ -171,13 +171,10 @@ public class CoordinatorController {
         String pswd = null;
         
         if(queryText.equalsIgnoreCase("Can you change my account password")) {
-            wr.setFulfillmentText("Please provide your username and password");
-            System.out.println(" qyeryText not null");
-            System.out.println();
+            wr.setFulfillmentText("Sure, can you please provide your username and password");
             
         } else if(action.equalsIgnoreCase("passwordChange")) {
-            System.out.println(" Action "+ action + " queryText " + queryText);
-            System.out.println(" qyeryText null");
+            System.out.println(" Action: "+ action + "\n queryText: " + queryText);
             if(botRequest.getQueryResult().getParameters().getUid()!=null) {
                uid = botRequest.getQueryResult().getParameters().getUid();
                pswd = botRequest.getQueryResult().getParameters().getPswd();
@@ -185,10 +182,16 @@ public class CoordinatorController {
                if((uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&(pswd.equalsIgnoreCase("123abc123"))) {
                    wr.setFulfillmentText("Password reset successfully");
                    System.out.println("password match");
-                   System.out.println();
+               } else if((uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&!(pswd.equalsIgnoreCase("123abc123"))){
+                   wr.setFulfillmentText("Password doesnot match");
+               } else if(!(uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&(pswd.equalsIgnoreCase("123abc123"))){
+                   wr.setFulfillmentText("Username doesnot match");
                }
             }
+        } else {
+            wr.setFulfillmentText("Sorry, i didn't understand that... Can you rephrase");
         }
+        
         
         /*if (botRequest.getQueryResult().getParameters().getUsername() != null) {
             fText = botRequest.getQueryResult().getParameters().getUsername();
