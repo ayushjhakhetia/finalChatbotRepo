@@ -141,7 +141,7 @@ public class CoordinatorController {
         }
         // WebhookResponse wr = new WebhookResponse(botResponse.getSpeech(), botResponse.getDisplayText());
 
-        WebhookResponse wr = new WebhookResponse(botResponse.getSpeech());
+        WebhookResponse wr = new WebhookResponse();
         
         //For Agent - Webhook Demo
         
@@ -178,14 +178,19 @@ public class CoordinatorController {
             if(botRequest.getQueryResult().getParameters().getUid()!=null) {
                uid = botRequest.getQueryResult().getParameters().getUid();
                pswd = botRequest.getQueryResult().getParameters().getPswd();
-               System.out.println(" uid  and pswd " + uid + " pswd " + pswd);
+               System.out.println(" uid: " + uid + "\npswd: " + pswd);
                if((uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&(pswd.equalsIgnoreCase("123abc123"))) {
                    wr.setFulfillmentText("Password reset successfully");
                    System.out.println("password match");
-               } else if((uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&!(pswd.equalsIgnoreCase("123abc123"))){
+               } else if((uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&(!(pswd.equalsIgnoreCase("123abc123")))){
                    wr.setFulfillmentText("Password doesnot match");
-               } else if(!(uid.equalsIgnoreCase("ayushjhakhetia@gmail.com"))&&(pswd.equalsIgnoreCase("123abc123"))){
+                   System.out.println("Password doesnot match");
+               } else if((!(uid.equalsIgnoreCase("ayushjhakhetia@gmail.com")))&&(pswd.equalsIgnoreCase("123abc123"))){
                    wr.setFulfillmentText("Username doesnot match");
+                   System.out.println("Username doesnot match");
+               } else {
+                   wr.setFulfillmentText("Invalid Username and Password");
+                   System.out.println("Invalid Username and Password");
                }
             }
         } else {
@@ -237,12 +242,8 @@ public class CoordinatorController {
         List<TextResponse> ltr = new ArrayList<>();
         ltr.add(tr);
 //        wr.setFulfillmentMessages(ltr);
-        
-        System.out.println();
-        System.out.println(lt.get(0).getText().get(0));
        // wr.setFulfillmentMessages(lt);
         wr.setSource(botRequest.getSession());
-        System.out.println(wr);
         System.out.println("Source: " + wr.getSource());
         return wr;
     }
