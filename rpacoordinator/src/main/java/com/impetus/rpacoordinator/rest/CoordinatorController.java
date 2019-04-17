@@ -222,6 +222,7 @@ public class CoordinatorController {
         List<Text> lt = new ArrayList<>();
         lt.add(tx);
 //        lt.add(tx2);
+        //wr.setFulfillmentMessages(lt);
         
         Message message = new Message();
         message.setSpeech("Always speech ");

@@ -23,10 +23,8 @@ public class WebhookResponse {
     }
 
  /*   public final List<TextResponse> getFulfillmentMessages() {
-        return fulfillmentMessages;
-    }
 
-    public final void setFulfillmentMessages(List<TextResponse> fulfillmentMessages) {
+    public final void setFulfillmentMessages(List<Text> fulfillmentMessages) {
         this.fulfillmentMessages = fulfillmentMessages;
     }*/
 
@@ -46,7 +44,7 @@ public class WebhookResponse {
         this.outputContexts = outputContexts;
     }
 
-    public WebhookResponse(String speech, List<TextResponse> displayText) {
+    public WebhookResponse(String speech, List<Text> displayText) {
         this.fulfillmentText = speech;
 //        this.fulfillmentMessages = displayText;
     }
