@@ -203,11 +203,6 @@ public class CoordinatorController {
             }
         }
 */        
-        if (responseText != null) {
-        
-            System.out.println("responseText not null/ fullfillmentMessage not null");
-            wr.setFulfillmentMessages(responseText);
-        }
         Text tx = new Text();
         List<String> str = new ArrayList<String>();
         str.add("abcd");
@@ -230,14 +225,14 @@ public class CoordinatorController {
         
         Message message = new Message();
         message.setSpeech("Always speech ");
-        message.setType(1);
+        message.setType(0);
         
         TextResponse tr = new TextResponse();
         tr.setMessage(message);
         
         List<TextResponse> ltr = new ArrayList<>();
         ltr.add(tr);
-        wr.setFulfillmentMessages(ltr);
+//        wr.setFulfillmentMessages(ltr);
         
         System.out.println();
         System.out.println(lt.get(0).getText().get(0));
