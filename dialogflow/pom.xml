@@ -22,10 +22,21 @@
 			<version>1.4.2.RELEASE</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-dialogflow -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-dialogflow</artifactId>
 			<version>0.89.0-alpha</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
+	<build>
+	<plugins>
+		<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+			</configuration>
+		</plugin>
+	</plugins>
+	</build>
 </project>
