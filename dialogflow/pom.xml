@@ -6,7 +6,7 @@
 	<groupId>com.demo.chatbot</groupId>
 	<artifactId>dialogflow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<!-- <packaging>jar</packaging> -->
 
 	<name>dialogflow</name>
 	<url>http://maven.apache.org</url>
@@ -22,21 +22,22 @@
 			<version>1.4.2.RELEASE</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-dialogflow -->
-		<!-- <dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>google-cloud-dialogflow</artifactId>
-			<version>0.89.0-alpha</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.google.cloud</groupId> <artifactId>google-cloud-dialogflow</artifactId> 
+			<version>0.89.0-alpha</version> </dependency> -->
 	</dependencies>
 	<build>
-	<plugins>
-		<plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>1.8</source>
-				<target>1.8</target>
-			</configuration>
-		</plugin>
-	</plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
