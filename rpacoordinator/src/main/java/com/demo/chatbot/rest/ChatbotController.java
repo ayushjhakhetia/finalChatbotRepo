@@ -54,7 +54,7 @@ public class ChatbotController {
         Parameters parameters = new Parameters();
         followUpEventInput = new FollowUpEventInput("example", "en-US");
         followUpEventInput.setParameters(parameters);
-        //wr.setFollowupEventInput(followUpEventInput);
+        wr.setFollowupEventInput(followUpEventInput);
         wr.setOutputContexts(botRequest.getQueryResult().getOutputContexts());
         wr.setSource("Practice.session.com");
         return wr;
