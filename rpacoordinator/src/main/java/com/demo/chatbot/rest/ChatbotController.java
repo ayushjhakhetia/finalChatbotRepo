@@ -50,13 +50,14 @@ public class ChatbotController {
         botRequest = mapper.readValue(dr, BotRequest.class);
         System.out.println(dr);
         
-        Thread.sleep(4000);
+        Thread.sleep(3000);
         Parameters parameters = new Parameters();
         followUpEventInput = new FollowUpEventInput("example", "en-US");
         followUpEventInput.setParameters(parameters);
         wr.setFollowupEventInput(followUpEventInput);
         wr.setOutputContexts(botRequest.getQueryResult().getOutputContexts());
         wr.setSource("Practice.session.com");
+		wr.setFulfillmentText("Your request has been registered. Ticket Number is : 420");
         return wr;
     }
 
